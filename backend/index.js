@@ -3,8 +3,6 @@ const morgan = require('morgan');
 const multer = require('multer');
 const path = require('path');
 
-
-
 //initializations
 const app = express();
 
@@ -22,6 +20,12 @@ const storage = multer.diskStorage({
 app.use(multer({storage}).single('image'));
 app.use(express.urlencoded({extends: false}))
 app.use(express.json());
+
+//Routes
+app.use('/api/books', require('./routes/books'));
+
+//Static files
+app.use(express.static(path.join(__dirname, 'public')))
 
 //start server
 app.listen(app.get('port'), ()=>{
