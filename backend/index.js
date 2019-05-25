@@ -1,3 +1,7 @@
+//se está em ambiente de produção não require o módulo dotenv
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
 const express = require('express');
 const morgan = require('morgan');
 const multer = require('multer');
@@ -5,9 +9,10 @@ const path = require('path');
 
 //initializations
 const app = express();
+require('./database')
 
 //settings
-app.set('port', 3000)
+app.set('port', process.env.PORT || 3000)
 
 //middlewares
 app.use(morgan('dev'));
